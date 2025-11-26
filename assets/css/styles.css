@@ -293,6 +293,24 @@ nav a:hover {
   border-radius: 0.4rem;
 }
 
+.key-spec {
+  margin-top: 1.5rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 1.2rem;
+  border: 1px dashed rgba(78, 205, 196, 0.4);
+  background: rgba(78, 205, 196, 0.05);
+}
+
+.key-spec h3 {
+  margin-top: 0;
+  color: var(--accent);
+}
+
+.key-spec ul {
+  padding-left: 1.2rem;
+  color: var(--muted);
+}
+
 select,
 input[type="number"],
 input[type="text"] {

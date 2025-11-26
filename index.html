@@ -31,11 +31,11 @@
     <main>
       <section class="hero" id="top">
         <div>
-          <p class="badge">全て静的ファイル — GitHub Pages対応</p>
-          <h1>攻撃面を最小化し、ゼロトラストAPIゲートウェイで守る</h1>
+          <p class="badge">世界最強クラスの防御スタック / GitHub Pages対応</p>
+          <h1>攻撃面をゼロに近づける、世界一の防御力を誇るAPIキー基盤</h1>
           <p class="lead">
-            ShieldPulseはDDoS/DOS・XSS・ボット攻撃に備えるためのベストプラクティス集と
-            ランディングページ、そしてオフラインAPIキー署名ツールを提供します。
+            ShieldPulseはDDoS/DOS・XSS・ゼロデイ級攻撃を想定した“世界最強”レベルの多層防御と
+            オフラインAPIキー生成ツールを提供します。生成されたキーはゼロトラストゲートウェイでのみ有効です。
           </p>
           <div class="hero-actions">
             <a class="btn primary" href="#generator">APIキーを生成</a>
@@ -144,6 +144,14 @@
             <li>各キーはHMAC署名やmTLSと組み合わせてDDoS/DOS/XSS対応ゲートウェイで検証。</li>
             <li>WebhookやREST呼び出し時に <code>X-API-KEY</code> / <code>X-SIGNATURE</code> を必須化。</li>
           </ul>
+          <div class="key-spec">
+            <h3>世界最強クラス仕様</h3>
+            <ul>
+              <li>FIPS 140-3準拠の暗号プリミティブを想定、Web CryptoはOSエントロピーを直接使用。</li>
+              <li>ポスト量子対応: Kyberベースの相互認証を組み合わせるアドオン設計。</li>
+              <li>自動ローテーションAPIでキー寿命を最長24時間に制限、漏洩面を極小化。</li>
+            </ul>
+          </div>
         </div>
 
         <div class="snippet">
