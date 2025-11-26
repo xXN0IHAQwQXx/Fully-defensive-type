@@ -275,6 +275,24 @@ nav a:hover {
   color: var(--muted);
 }
 
+.key-notes {
+  margin: 1.5rem 0 0;
+  padding-left: 1.25rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.key-notes strong {
+  color: var(--accent);
+}
+
+.key-notes code {
+  color: var(--accent);
+  background: rgba(78, 205, 196, 0.1);
+  padding: 0.15rem 0.35rem;
+  border-radius: 0.4rem;
+}
+
 select,
 input[type="number"],
 input[type="text"] {
@@ -324,6 +342,19 @@ input[readonly] {
   padding: 3rem clamp(1rem, 6vw, 5rem);
 }
 
+.key-flow {
+  margin-top: 2rem;
+  background: rgba(78, 205, 196, 0.04);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+}
+
+.key-flow ol {
+  padding-left: 1.25rem;
+  color: var(--muted);
+}
+
 .docs table {
   width: 100%;
   border-collapse: collapse;
@@ -351,6 +382,23 @@ input[readonly] {
 .docs-aside .muted {
   color: var(--muted);
   font-size: 0.85rem;
+}
+
+.history {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 1.25rem;
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+}
+
+.history ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.4rem;
+  font-family: "Space Grotesk", monospace;
+  color: var(--muted);
 }
 
 .faq {

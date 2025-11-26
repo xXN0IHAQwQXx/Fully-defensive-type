@@ -13,6 +13,7 @@ const ui = {
   rateHint: document.getElementById("rate-hint"),
   rateButton: document.getElementById("calculate-rate"),
   year: document.getElementById("year"),
+  keyHistory: document.getElementById("key-history"),
 };
 
 const threatBands = [
@@ -37,6 +38,8 @@ const threatBands = [
     tip: "自動BGPブラックホールとmTLSクライアント証明書必須モードへ切替。",
   },
 ];
+
+const generatedKeys = [];
 
 const getThreatCopy = (value) => {
   const band = threatBands.find((option) => value < option.max) || threatBands.at(-1);
@@ -71,12 +74,25 @@ const generateKey = () => {
   const raw = randomHex(bytes);
   const key = `SPD-${formatKey(raw)}`;
   ui.keyField.value = key;
+  updateHistory(key);
   ui.snippet.textContent = [
     'curl -X POST https://api.shieldpulse.io/v1/shield/analyze \\',
     `  -H "X-API-KEY: ${key}" \\`,
     '  -H "X-SIGNATURE: hmac-sha256(body, secret)" \\',
     "  -d '{\"payload\":\"<redacted>\"}'",
   ].join("\n");
+};
+
+const updateHistory = (key) => {
+  if (!ui.keyHistory) return;
+  generatedKeys.unshift(key);
+  generatedKeys.splice(5);
+  ui.keyHistory.innerHTML = "";
+  generatedKeys.forEach((value) => {
+    const li = document.createElement("li");
+    li.textContent = value;
+    ui.keyHistory.appendChild(li);
+  });
 };
 
 const copyKey = async () => {

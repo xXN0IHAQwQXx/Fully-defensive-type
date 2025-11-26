@@ -136,9 +136,14 @@
               <button id="copy-key" class="btn ghost" type="button">コピー</button>
             </div>
             <p class="helper">
-              生成されたキーはローカルにのみ存在します。秘密管理ストアへ即時保管してください。
+              生成ボタンは在庫無制限です。無限にAPIキーを発行でき、すべてローカルで完結します。
             </p>
           </div>
+          <ul class="key-notes">
+            <li><strong>SPD-</strong>プレフィックス + ランダムHEX（例: SPD-ABCD-1234-...）。</li>
+            <li>各キーはHMAC署名やmTLSと組み合わせてDDoS/DOS/XSS対応ゲートウェイで検証。</li>
+            <li>WebhookやREST呼び出し時に <code>X-API-KEY</code> / <code>X-SIGNATURE</code> を必須化。</li>
+          </ul>
         </div>
 
         <div class="snippet">
@@ -150,6 +155,11 @@ curl -X POST https://api.shieldpulse.io/v1/shield/analyze \
   -d '{"payload":"<redacted>"}'
           </pre>
         </div>
+        <aside class="history">
+          <h3>生成履歴 (最新5件)</h3>
+          <ul id="key-history"></ul>
+          <p class="muted">履歴はブラウザを更新すると消去されます。使い終わったキーは即座に無効化してください。</p>
+        </aside>
       </section>
 
       <section id="docs" class="docs">
@@ -182,6 +192,15 @@ curl -X POST https://api.shieldpulse.io/v1/shield/analyze \
               </tr>
             </tbody>
           </table>
+          <div class="key-flow">
+            <h3>APIキー検証フロー</h3>
+            <ol>
+              <li>クライアントはSPDキーでリクエストに署名し、DOS/DDoS緩和用のゲートウェイへ送信。</li>
+              <li>ゲートウェイはレート制限 → シグネチャ検証 → ルールベースWAFの順で検査。</li>
+              <li>異常検知時はキーを即時ローテーションし、新しいキーをこのページで無限に再発行。</li>
+            </ol>
+            <p class="muted">XSS対策として、UIはCSPでインラインスクリプトを禁止し、全フォームをSameSite=Laxにする設計です。</p>
+          </div>
         </div>
         <aside class="docs-aside">
           <h3>レート制限 参考値</h3>
