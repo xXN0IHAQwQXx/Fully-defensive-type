@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; img-src 'self' data:; script-src 'self'; style-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+    >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index,follow">
+    <meta name="description" content="ShieldPulse | GitHub Pages-ready defensive platform offering DDoS/DOS/XSS posture hardening, zero-trust gateways, and signed API keys.">
+    <title>ShieldPulse | Zero-Trust Defensive Edge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" integrity="sha384-52uS6JtJ5Wqr6oLBRFDObN82jeiK7kBMY0zuAjfTubX5J3bhuoS6/RU/irF9Zmr0">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+  </head>
+  <body>
+    <noscript class="no-script-warning">JavaScriptを有効化するとAPIキー生成ツールなど全機能が動作します。</noscript>
+    <header class="site-header">
+      <div class="logo">ShieldPulse</div>
+      <nav aria-label="Primary">
+        <a href="#features">Features</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#generator">API Keys</a>
+        <a href="#docs">Docs</a>
+      </nav>
+      <a class="cta-link" href="#launch-readme">GitHub Pages 手順</a>
+    </header>
+
+    <main>
+      <section class="hero" id="top">
+        <div>
+          <p class="badge">全て静的ファイル — GitHub Pages対応</p>
+          <h1>攻撃面を最小化し、ゼロトラストAPIゲートウェイで守る</h1>
+          <p class="lead">
+            ShieldPulseはDDoS/DOS・XSS・ボット攻撃に備えるためのベストプラクティス集と
+            ランディングページ、そしてオフラインAPIキー署名ツールを提供します。
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#generator">APIキーを生成</a>
+            <a class="btn ghost" href="#docs">REST APIドキュメント</a>
+          </div>
+          <ul class="guard-list">
+            <li>☑ レート制御アルゴリズム例</li>
+            <li>☑ CSP/CSRF/XSS 対策済みテンプレート</li>
+            <li>☑ 署名付きAPIキー例</li>
+          </ul>
+        </div>
+        <div class="hero-card" aria-live="polite">
+          <h2>ライブ攻撃検知サマリ</h2>
+          <p class="hero-metric">
+            <span class="metric-label">現在の脅威レベル</span>
+            <span id="threat-level" class="metric-value">監視モード</span>
+          </p>
+          <div class="hero-meter">
+            <input id="traffic-slider" type="range" min="0" max="100" value="45" aria-label="トラフィック量シミュレータ">
+            <div class="slider-caption">低</div>
+            <div class="slider-caption">高</div>
+          </div>
+          <p id="mitigation-tip" class="tip">
+            50K rps まではL4シンクホール / 3秒バーストバッファで吸収可能です。
+          </p>
+        </div>
+      </section>
+
+      <section id="features" class="panel-grid">
+        <article>
+          <h3>アプリ層防御</h3>
+          <p>自動WAFルール、プリミティブレート制限テンプレート、Bot指紋アップデートを前提にした構造。</p>
+          <ul>
+            <li>ルールはOWASP Top 10準拠</li>
+            <li>HTTPメソッド毎のクオータ例を記載</li>
+            <li>可観測性：OpenTelemetry導線</li>
+          </ul>
+        </article>
+        <article>
+          <h3>ネットワーク硬化</h3>
+          <p>Anycastエッジ、BGP黒穴、フェイルクローズ式ゼロトラストゲートを想定。</p>
+          <ul>
+            <li>IPv6優先ルーティング</li>
+            <li>mTLS &amp; TOFU検証ロジック</li>
+            <li>常時TLS1.3 + HSTS</li>
+          </ul>
+        </article>
+        <article>
+          <h3>XSS/CSRF対策</h3>
+          <p>厳格なCSP、HTMLエスケープのユーティリティ、SameSite属性の解説。</p>
+          <ul>
+            <li>DOMPurify互換API例</li>
+            <li>Nonce更新パターン</li>
+            <li>Origin Isolationガイド</li>
+          </ul>
+        </article>
+      </section>
+
+      <section id="architecture" class="architecture">
+        <div>
+          <h2>リファレンスアーキテクチャ</h2>
+          <p>
+            3層シャード構成で攻撃対象領域を縮小し、全通信をゼロトラストメッシュで検証します。
+            図解の通り、公開されるのはCDN + APIゲートウェイのみです。
+          </p>
+          <ul class="arch-list">
+            <li>Ingress: Anycast + eBPFフィルタ + 自動IPレピュテーション</li>
+            <li>Middle tier: 署名検証 + 行動分析 + レスポンスキャッシュ</li>
+            <li>Core: Secrets Manager + 署名済みWebhookで最小権限連携</li>
+          </ul>
+        </div>
+        <div class="diagram-card" aria-hidden="true">
+          <div class="diagram-layer">Global Anycast Edge</div>
+          <div class="diagram-layer">Zero-Trust API Gateway</div>
+          <div class="diagram-layer">Adaptive Risk Engine</div>
+          <div class="diagram-layer">Core Services / Secrets</div>
+        </div>
+      </section>
+
+      <section id="generator" class="key-generator">
+        <div>
+          <h2>オフラインAPIキー生成</h2>
+          <p>
+            Web Crypto APIでクライアントサイド生成するため、サーバーに鍵を送信しません。
+            キーはHMAC-SHA256で署名する例を添付しています。
+          </p>
+          <div class="generator-card">
+            <label for="entropy-size">キー長 (byte)</label>
+            <select id="entropy-size">
+              <option value="32" selected>32 (推奨)</option>
+              <option value="48">48</option>
+              <option value="64">64</option>
+            </select>
+            <button id="generate-key" class="btn primary">APIキーを生成</button>
+            <div class="key-output">
+              <label for="api-key">APIキー</label>
+              <input id="api-key" type="text" readonly aria-live="polite">
+              <button id="copy-key" class="btn ghost" type="button">コピー</button>
+            </div>
+            <p class="helper">
+              生成されたキーはローカルにのみ存在します。秘密管理ストアへ即時保管してください。
+            </p>
+          </div>
+        </div>
+
+        <div class="snippet">
+          <h3>署名付きリクエスト例</h3>
+          <pre id="curl-snippet" class="code-block" aria-live="polite">
+curl -X POST https://api.shieldpulse.io/v1/shield/analyze \
+  -H "X-API-KEY: SPD-XXXXX" \
+  -H "X-SIGNATURE: hmac-sha256(...)" \
+  -d '{"payload":"<redacted>"}'
+          </pre>
+        </div>
+      </section>
+
+      <section id="docs" class="docs">
+        <div>
+          <h2>API ドキュメント</h2>
+          <p>全エンドポイントはIdempotentキー検証、WAF前段、mTLS(+ fallback)を標準搭載。</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>Endpoint</th>
+                <th>Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>POST</td>
+                <td>/v1/shield/analyze</td>
+                <td>リクエスト指紋を評価し、適用すべきポリシーを返す。</td>
+              </tr>
+              <tr>
+                <td>POST</td>
+                <td>/v1/shield/verify</td>
+                <td>Webhook署名やmTLS証明書ピンニング結果を検証。</td>
+              </tr>
+              <tr>
+                <td>GET</td>
+                <td>/v1/telemetry/health</td>
+                <td>レートリミット消費量やブロック統計をリアルタイム取得。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <aside class="docs-aside">
+          <h3>レート制限 参考値</h3>
+          <p id="rate-hint">推奨: 120 req/min, 5 req/sec ハードリミット。</p>
+          <label for="burst-input">想定ピークRPS</label>
+          <input id="burst-input" type="number" min="10" max="2000" value="120">
+          <button id="calculate-rate" class="btn primary">計算</button>
+          <p class="muted">
+            計算結果は単純化されたモデルです。実運用ではL4/L7の観測結果と合わせて調整してください。
+          </p>
+        </aside>
+      </section>
+
+      <section class="faq">
+        <h2>よくある質問</h2>
+        <details>
+          <summary>このテンプレートはGitHub Pagesでそのまま動きますか？</summary>
+          <p>はい。すべてのアセットはリポジトリ内相対パス参照です。リポジトリ設定でPagesを有効化すれば公開できます。</p>
+        </details>
+        <details>
+          <summary>実際のDDoS軽減機能は含まれますか？</summary>
+          <p>本テンプレートはベストプラクティスとUIを提供します。実際の軽減はあなたのインフラへ連携してください。</p>
+        </details>
+        <details>
+          <summary>APIキーをどこに保存すれば安全ですか？</summary>
+          <p>AWS Secrets ManagerやHashiCorp VaultなどのKMS/Secretストアに保存し、環境変数で読み出してください。</p>
+        </details>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="launch-readme">
+      <p>© <span id="year"></span> ShieldPulse | Security-first GitHub Pages Template</p>
+      <a href="README.md">導入ガイドを開く</a>
+    </footer>
+
+    <script src="./assets/js/app.js" type="module"></script>
+  </body>
+</html>
